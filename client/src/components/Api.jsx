@@ -7,7 +7,7 @@ const ApiClient = () => {
 
   // Create Axios instance
   const api = axios.create({
-    baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://dtr-production.onrender.com/api',
   });
 
   // Add request interceptor
