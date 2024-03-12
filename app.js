@@ -4,7 +4,8 @@ dotenv.config();
 import mongoose from 'mongoose'
 import express  from 'express'
 import cors from 'cors'
-import path from 'path'
+import path, {dirname} from 'path'
+import { fileURLToPath } from 'url';
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
@@ -17,6 +18,10 @@ import employeesRoute from './routes/employeeRoute.js'
 import departmentRoute from './routes/departmentRoute.js'
 import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js'
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express()
 
 app.use(express.json())
@@ -26,6 +31,7 @@ app.use('/api/users', usersRoute)
 app.use('/api/employees', employeesRoute)
 app.use('/api/departments', departmentRoute)
 app.use('/api/employee-attendances', employeeAttendanceRoute)
+
 
 app.use(express.static(path.join(__dirname, "client/dist")));
 
