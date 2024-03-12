@@ -289,8 +289,9 @@ export const attendance = async (req,res) => {
 
     const dtrEmployee = await DtrEmployee.findOne({employee : employeeId, dtr : dtr._id})
     // Set the timezone to 'Asia/Manila'
+    console.log(currentDate)
     currentDate.toLocaleString('en-US', { timeZone: 'Asia/Manila' });
-
+    console.log(currentDate)
     // Set time to start of the day (midnight)
     currentDate.setHours(0, 0, 0, 0);
 
