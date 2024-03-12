@@ -279,6 +279,7 @@ export const attendance = async (req,res) => {
 
   try{
     const currentDate = new Date();
+    currentDate.toLocaleString('en-US', { timeZone: 'Asia/Manila' });
     const department = new mongoose.Types.ObjectId(employeeDepartment);
 
     const dtr = await Dtr.findOne({
