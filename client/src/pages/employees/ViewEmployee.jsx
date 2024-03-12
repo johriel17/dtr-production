@@ -3,7 +3,6 @@ import ApiClient from '../../components/Api'
 import { useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import Spinner from '../../components/Spinner'
-import ApiClient from '../../components/Api';
 
 const ViewEmployee = () => {
 
