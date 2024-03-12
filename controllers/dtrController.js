@@ -288,15 +288,26 @@ export const attendance = async (req,res) => {
     });
 
     const dtrEmployee = await DtrEmployee.findOne({employee : employeeId, dtr : dtr._id})
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0); // Set time to start of the day (midnight)
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999); // Set time to end of the day (just before midnight)
+    // Set the timezone to 'Asia/Manila'
+    currentDate.toLocaleString('en-US', { timeZone: 'Asia/Manila' });
+
+    // Set time to start of the day (midnight)
+    currentDate.setHours(0, 0, 0, 0);
+
+    // Create a new Date object for the end of the day
+    const endOfDay = new Date(currentDate);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    // Format the dates in ISO 8601 format
+    const isoFormattedStartOfDay = currentDate.toISOString();
+    const isoFormattedEndOfDay = endOfDay.toISOString();
+    
+    console.log(isoFormattedStartOfDay, isoFormattedEndOfDay)
 
     const dtrEmployeeSubs = await DtrEmployeeSub.findOne({
       date: {
-        $gte: startOfDay,
-        $lte: endOfDay
+        $gte: isoFormattedStartOfDay,
+        $lte: isoFormattedEndOfDay
       },
       dtrEmployee : dtrEmployee._id
     }

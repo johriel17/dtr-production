@@ -3,6 +3,7 @@ import ApiClient from '../../components/Api'
 import { useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import Spinner from '../../components/Spinner'
+import ApiClient from '../../components/Api';
 
 const ViewEmployee = () => {
 
@@ -16,7 +17,7 @@ const ViewEmployee = () => {
     const fetchData = async () => {
       try{
         setLoading(true)
-        const res = await api.get(`http://localhost:4000/api/employees/${id}`)
+        const res = await api.get(`/employees/${id}`)
         setEmployee(res.data)
         setLoading(false)
       }catch(error){
