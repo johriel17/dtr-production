@@ -4,6 +4,7 @@ import DtrEmployee from "../models/dtrEmployeeModel.js";
 import DtrEmployeeSub from "../models/dtrEmployeeSubModel.js";
 import mongoose from 'mongoose';
 import { convertTimeFormat } from "../util/mainUtil.js";
+import moment from 'moment'
 // import { parseISO } from 'date-fns'; 
 
 // export const getDtrs = async (req,res) =>{
@@ -278,8 +279,8 @@ export const attendance = async (req,res) => {
   const {employeeId, employeeDepartment} = req.params
 
   try{
-    const currentDate = new Date();
-    currentDate.toLocaleString('en-US', { timeZone: 'UTC+08:00' });
+    
+    const currentDate = moment().utcOffset('+08:00').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
     const department = new mongoose.Types.ObjectId(employeeDepartment);
 
     const dtr = await Dtr.findOne({
@@ -291,13 +292,10 @@ export const attendance = async (req,res) => {
     const dtrEmployee = await DtrEmployee.findOne({employee : employeeId, dtr : dtr._id})
     // Set the timezone to 'Asia/Manila'
     console.log(currentDate)
-    currentDate.toLocaleString('en-US', { timeZone: 'Asia/Manila' });
-    console.log(currentDate)
     // Set time to start of the day (midnight)
     currentDate.setHours(0, 0, 0, 0);
-
     // Create a new Date object for the end of the day
-    const endOfDay = new Date(currentDate);
+    const endOfDay = currentDate;
     endOfDay.setHours(23, 59, 59, 999);
 
     // Format the dates in ISO 8601 format
