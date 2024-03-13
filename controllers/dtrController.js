@@ -280,7 +280,7 @@ export const attendance = async (req,res) => {
 
   try{
     
-    const currentDate = moment().utcOffset('+08:00');
+    const currentDate = new Date()
     const department = new mongoose.Types.ObjectId(employeeDepartment);
 
     const dtr = await Dtr.findOne({
@@ -292,16 +292,18 @@ export const attendance = async (req,res) => {
     const dtrEmployee = await DtrEmployee.findOne({employee : employeeId, dtr : dtr._id})
     // Set the timezone to 'Asia/Manila'
     console.log(currentDate)
+    const currentMomentDate = moment().utcOffset('+08:00');
+    console.log(currentMomentDate)
     // Set time to start of the day (midnight)
     // Set time to start of the day (midnight)
-    currentDate.startOf('day');
-
+    currentMomentDate.startOf('day');
+    const isoFormattedStartOfDay = currentDate.toISOString();
     // Set time to end of the day (11:59:59 PM)
-    currentDate.endOf('day');
+    currentMomentDate.endOf('day');
 
     // Format the dates in ISO 8601 format
-    const isoFormattedStartOfDay = currentDate.toISOString();
-    const isoFormattedEndOfDay = currentDate.clone().endOf('day').toISOString();
+    
+    const isoFormattedEndOfDay = currentMomentDate.clone().endOf('day').toISOString();
     
     console.log(isoFormattedStartOfDay, isoFormattedEndOfDay)
 
