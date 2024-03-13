@@ -280,7 +280,7 @@ export const attendance = async (req,res) => {
 
   try{
     
-    const currentDate = new Date()
+    const currentDate = new Date(new Date().getTime() + (8 * 60 * 60 * 1000));
     const department = new mongoose.Types.ObjectId(employeeDepartment);
 
     const dtr = await Dtr.findOne({
@@ -297,7 +297,7 @@ export const attendance = async (req,res) => {
     // Set time to start of the day (midnight)
     // Set time to start of the day (midnight)
     currentMomentDate.startOf('day');
-    const isoFormattedStartOfDay = currentDate.toISOString();
+    const isoFormattedStartOfDay = currentMomentDate.toISOString();
     // Set time to end of the day (11:59:59 PM)
     currentMomentDate.endOf('day');
 
