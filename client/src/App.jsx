@@ -46,7 +46,7 @@ function App() {
             <Route
               path='/'
               element={
-                user && user.employee ? <HomeEmployee /> : user ? <Home /> : <Navigate to='/login' />
+                user && user.employee ? <HomeEmployee /> : user ? <IndexDtr /> : <Navigate to='/login' />
               }
             />
 
